@@ -1,2 +1,3 @@
 recursive-include meow/templates *
 recursive-include meow/static *
+include README.rst
