@@ -31,6 +31,6 @@ def to_html(filename):
             content = publish_string(writer_name='html',
                                      source=content)
             return content
-    except IOError, e:
+    except IOError as e:
         logging.error(e.strerror)
         raise e

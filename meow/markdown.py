@@ -59,6 +59,6 @@ def to_html(filename):
             content = content.decode('utf-8')
             content = markdown.render(content)
             return content
-    except IOError, e:
+    except IOError as e:
         logging.error(e.strerror)
         raise e

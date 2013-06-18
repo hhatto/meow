@@ -45,7 +45,7 @@ def open_local_url(port):
     webbrowser.open(local_url)
 
 def main():
-    args = docopt(__doc__, version='0.2.0')
+    args = docopt(__doc__, version='0.2')
 
     markdown_file = os.path.abspath(args['FILE'])
     output_file = args['--output']
@@ -84,8 +84,8 @@ def main():
     except:
         pass
     # start server
-    print 'Preview on http://127.0.0.1:%d' % port
-    print 'Hit Ctrl-C to quit.'
+    print('Preview on http://127.0.0.1:%d' % port)
+    print('Hit Ctrl-C to quit.')
     meow.quickstart(markdown_file, port=port, debug=use_debug)
 
 if __name__ == '__main__':

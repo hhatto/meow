@@ -69,13 +69,13 @@ def build_app(filename, port, debug, quiet):
         try:
             obj = bottle.request.json
             timestamp = long(obj['timestamp'])
-        except Exception, e:
+        except Exception as e:
             logging.debug(e.message)
             bottle.response.status = '400 Malformed JSON'
             return
         try:
             file_timestamp = markup.timestamp
-        except OSError, e:
+        except OSError as e:
             logging.critical('%s: %s', markup.filename, e.strerror)
             raise e
 
@@ -181,5 +181,5 @@ def export_html(markdown_file, export_file):
     try:
         with open(export_file, 'w') as export_file:
             export_file.write(exported_html.encode('utf-8'))
-    except IOError, e:
+    except IOError as e:
         logging.error(e.strerror)
