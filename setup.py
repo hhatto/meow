@@ -17,7 +17,7 @@ from setuptools import setup
 
 setup(
 	name='meow',
-	version='0.1',
+	version='0.1.1',
 	description="meow is an editor-agnostic markdown/reST live preview server.",
 	long_description=open('README.rst').read(),
     author="Hideo Hattori",
