@@ -8,5 +8,5 @@ clean:
 		htmlcov coverage.xml
 
 pypireg:
-	${PYTHON} setup.py register
-	${PYTHON} setup.py sdist upload
+	python setup.py register
+	python setup.py sdist upload
