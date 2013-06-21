@@ -24,7 +24,9 @@ import logging
 from bottle import ServerAdapter
 from cherrypy import wsgiserver
 
+
 class StoppableCherryPyServer(ServerAdapter):
+
     """ HACK for making a stoppable server """
     def __int__(self, *args, **kwargs):
         super(ServerAdapter, self).__init__(*args, **kwargs)
@@ -44,4 +46,3 @@ class StoppableCherryPyServer(ServerAdapter):
         except:
             logging.critical('error on shutting down cherrypy server')
         self.srv = None
-

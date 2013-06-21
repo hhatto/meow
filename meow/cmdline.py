@@ -21,11 +21,11 @@ Options:
 """
 
 import logging
-import meow
 import os
 import sys
 from docopt import docopt
 from ._version import __version__
+from .meow import quickstart, export_html
 
 
 # def pick_unused_port():
@@ -42,6 +42,7 @@ def open_local_url(port):
     local_url = 'http://127.0.0.1:%d' % port
     webbrowser.open(local_url)
 
+
 def main():
     args = docopt(__doc__, version=__version__)
 
@@ -52,7 +53,7 @@ def main():
 
     # export HTML mode
     if output_file is not None:
-        meow.export_html(markdown_file, output_file)
+        export_html(markdown_file, output_file)
         return
 
     # shut-your-mouth-up mode
@@ -84,7 +85,7 @@ def main():
     # start server
     print('Preview on http://127.0.0.1:%d' % port)
     print('Hit Ctrl-C to quit.')
-    meow.quickstart(markdown_file, port=port, debug=use_debug)
+    quickstart(markdown_file, port=port, debug=use_debug)
 
 if __name__ == '__main__':
     main()

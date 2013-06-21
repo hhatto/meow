@@ -23,16 +23,20 @@ SOFTWARE.
 
 import bottle
 import logging
-import markdown
-import rst
 import os
 import re
 from bottle import Bottle
-from server import StoppableCherryPyServer
+from .markdown import to_html as markdown_to_html
+from .rst import to_html as rst_to_html
+from .server import StoppableCherryPyServer
 
 __all__ = ['build_app', 'quickstart', 'export_html']
 __file__ = os.path.normpath(os.path.abspath(__file__))
 __path__ = os.path.dirname(__file__)
+
+# for Python3.x
+if not hasattr(__builtins__, 'long'):
+    long = int
 
 # Fix default template path
 DEFAULT_TEMPLATE_DIR = os.path.normpath(os.path.join(__path__, 'templates'))
@@ -127,7 +131,7 @@ class Markup(object):
 
     def _ftdetect(self, filename):
         # Markup._markup_detect
-        for ft, detect in Markup._markup_detect.iteritems():
+        for ft, detect in Markup._markup_detect.items():
             if re.search(detect, filename) is not None:
                 return ft
         raise ValueError('unsupported markup')
@@ -156,8 +160,8 @@ class Markup(object):
         return locals()
     html = property(**html())
 
-Markup.add_markup('markdown', r'\.(markdown|md|mdown|mkd|mkdn)$', markdown.to_html)
-Markup.add_markup('rst', r'\.(rst|rest)$', rst.to_html)
+Markup.add_markup('markdown', r'\.(markdown|md|mdown|mkd|mkdn)$', markdown_to_html)
+Markup.add_markup('rst', r'\.(rst|rest)$', rst_to_html)
 
 
 def quickstart(markdown_file, port, debug=False, quiet=True):

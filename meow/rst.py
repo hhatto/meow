@@ -27,9 +27,9 @@ def to_html(filename):
         with open(filename) as f:
             content = f.read()
             # TODO charset detect
-            content = content.decode('utf-8')
-            content = publish_string(writer_name='html',
-                                     source=content)
+            if hasattr(content, 'decode'):
+                content = content.decode('utf-8')
+            content = publish_string(writer_name='html', source=content)
             return content
     except IOError as e:
         logging.error(e.strerror)

@@ -40,7 +40,9 @@ RENDER_EXTENSIONS = misaka.EXT_FENCED_CODE | \
 # misaka HTML flags
 HTML_FLAGS = misaka.HTML_TOC
 
+
 class HtmlRenderer(misaka.HtmlRenderer, misaka.SmartyPants):
+
     def block_code(self, text, lang):
         if not lang:
             return '\n<pre><code>%s</code></pre>\n' % \
@@ -51,12 +53,14 @@ class HtmlRenderer(misaka.HtmlRenderer, misaka.SmartyPants):
 
 markdown = misaka.Markdown(HtmlRenderer(HTML_FLAGS), RENDER_EXTENSIONS)
 
+
 def to_html(filename):
     try:
         with open(filename) as f:
             content = f.read()
             # TODO charset detect
-            content = content.decode('utf-8')
+            if hasattr(content, 'decode'):
+                content = content.decode('utf-8')
             content = markdown.render(content)
             return content
     except IOError as e:
