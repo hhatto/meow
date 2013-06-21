@@ -14,10 +14,11 @@
 """
 
 from setuptools import setup
+exec(open('meow/_version.py').read())
 
 setup(
 	name='meow',
-	version='0.2',
+	version=__version__,
 	description="meow is an editor-agnostic markdown/reST live preview server.",
 	long_description=open('README.rst').read(),
     author="Hideo Hattori",

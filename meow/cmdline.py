@@ -25,6 +25,8 @@ import meow
 import os
 import sys
 from docopt import docopt
+from ._version import __version__
+
 
 # def pick_unused_port():
 #     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -41,7 +43,7 @@ def open_local_url(port):
     webbrowser.open(local_url)
 
 def main():
-    args = docopt(__doc__, version='0.2')
+    args = docopt(__doc__, version=__version__)
 
     markdown_file = os.path.abspath(args['FILE'])
     output_file = args['--output']
