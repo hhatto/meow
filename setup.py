@@ -17,23 +17,23 @@ from setuptools import setup
 exec(open('meow/_version.py').read())
 
 setup(
-	name='meow',
-	version=__version__,
-	description="meow is an editor-agnostic markdown/reST live preview server.",
-	long_description=open('README.rst').read(),
+    name='meow',
+    version=__version__,
+    description="meow is an editor-agnostic markdown/reST live preview server.",
+    long_description=open('README.rst').read(),
     author="Hideo Hattori",
     author_email="hhatto.jp@gmail.com",
     keywords=("markdown", "reStructuredText", "pygments", "preview",
               "bottle", "github"),
     url = "https://github.com/hhatto/meow",
-	packages=['meow'],
-	include_package_data=True,
-	zip_safe=False,
+    packages=['meow'],
+    include_package_data=True,
+    zip_safe=False,
     platforms = 'any',
-	install_requires=['misaka', 'docutils', 'bottle', 'pygments',
+    install_requires=['misaka', 'docutils', 'bottle', 'pygments',
                       'docopt', 'cherrypy'],
     license='MIT',
-	entry_points={
+    entry_points={
         'console_scripts': ['meow = meow.cmdline:main'],
     },
     classifiers=[
@@ -48,4 +48,3 @@ setup(
         'Topic :: Utilities'
     ]
 )
-
