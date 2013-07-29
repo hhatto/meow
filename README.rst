@@ -27,8 +27,8 @@ Requirements
 
 meow requires
 
-* sundown_
-* misaka_
+* sundown_ (optional)
+* misaka_ (optional)
 * `bottle.py`_
 * pygments_
 * docutils_
