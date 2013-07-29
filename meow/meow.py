@@ -26,7 +26,10 @@ import logging
 import os
 import re
 from bottle import Bottle
-from .markdown import to_html as markdown_to_html
+try:
+    from .markdown import to_html as markdown_to_html
+except ImportError:
+    misaka_is_not_installed = True
 from .rst import to_html as rst_to_html
 from .server import StoppableCherryPyServer
 
@@ -160,7 +163,8 @@ class Markup(object):
         return locals()
     html = property(**html())
 
-Markup.add_markup('markdown', r'\.(markdown|md|mdown|mkd|mkdn)$', markdown_to_html)
+if 'misaka_is_not_installed' not in locals():
+    Markup.add_markup('markdown', r'\.(markdown|md|mdown|mkd|mkdn)$', markdown_to_html)
 Markup.add_markup('rst', r'\.(rst|rest)$', rst_to_html)
 
 

@@ -30,8 +30,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     platforms = 'any',
-    install_requires=['misaka', 'docutils', 'bottle', 'pygments',
-                      'docopt', 'cherrypy'],
+    install_requires=['docutils', 'bottle', 'pygments', 'docopt', 'cherrypy'],
     license='MIT',
     entry_points={
         'console_scripts': ['meow = meow.cmdline:main'],
