@@ -27,16 +27,14 @@ Requirements
 
 meow requires
 
-* sundown_ (optional)
-* misaka_ (optional)
+* hoedown_ (optional)
 * `bottle.py`_
 * pygments_
 * docutils_
 * CherryPy_
 * docopt_
 
-.. _sundown: https://github.com/vmg/sundown
-.. _misaka: https://github.com/FSX/misaka
+.. _hoedown: https://github.com/hhatto/python-hoedown
 .. _`bottle.py`: http://bottlepy.org/
 .. _pygments: http://pygments.org/
 .. _docutils: https://pypi.python.org/pypi/docutils

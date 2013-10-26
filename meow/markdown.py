@@ -21,7 +21,7 @@ SOFTWARE.
 """
 
 import logging
-import misaka
+import hoedown
 import pygments
 from cgi import escape as escape_html
 from pygments.lexers import get_lexer_by_name
@@ -29,19 +29,19 @@ from pygments.formatters import HtmlFormatter
 
 __all__ = ['to_html']
 
-# misaka renderer extensions
-RENDER_EXTENSIONS = misaka.EXT_FENCED_CODE | \
-                    misaka.EXT_NO_INTRA_EMPHASIS | \
-                    misaka.EXT_AUTOLINK | \
-                    misaka.EXT_STRIKETHROUGH | \
-                    misaka.EXT_LAX_HTML_BLOCKS | \
-                    misaka.EXT_SUPERSCRIPT | \
-                    misaka.EXT_TABLES
-# misaka HTML flags
-HTML_FLAGS = misaka.HTML_TOC
+# hoedown renderer extensions
+RENDER_EXTENSIONS = hoedown.EXT_FENCED_CODE | \
+                    hoedown.EXT_NO_INTRA_EMPHASIS | \
+                    hoedown.EXT_AUTOLINK | \
+                    hoedown.EXT_STRIKETHROUGH | \
+                    hoedown.EXT_LAX_HTML_BLOCKS | \
+                    hoedown.EXT_SUPERSCRIPT | \
+                    hoedown.EXT_TABLES
+# hoedown HTML flags
+HTML_FLAGS = hoedown.HTML_TOC
 
 
-class HtmlRenderer(misaka.HtmlRenderer, misaka.SmartyPants):
+class HtmlRenderer(hoedown.HtmlRenderer, hoedown.SmartyPants):
 
     def block_code(self, text, lang):
         if not lang:
@@ -51,7 +51,7 @@ class HtmlRenderer(misaka.HtmlRenderer, misaka.SmartyPants):
         formatter = HtmlFormatter()
         return pygments.highlight(text, lexer, formatter)
 
-markdown = misaka.Markdown(HtmlRenderer(HTML_FLAGS), RENDER_EXTENSIONS)
+markdown = hoedown.Markdown(HtmlRenderer(HTML_FLAGS), RENDER_EXTENSIONS)
 
 
 def to_html(filename):
