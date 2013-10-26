@@ -46,11 +46,11 @@ bottle.TEMPLATE_PATH = [DEFAULT_TEMPLATE_DIR, './']
 DEFAULT_STATIC_FILES_DIR = os.path.normpath(os.path.join(__path__, 'static'))
 
 
-def build_app(filename, port, debug, quiet):
+def build_app(filename, port, debug, quiet, filetype):
     app = Bottle()
     server = StoppableCherryPyServer(port=port, debug=debug, quiet=quiet)
     root, ext = os.path.splitext(filename)
-    markup = Markup(filename)
+    markup = Markup(filename, filetype)
     dirname, basename = os.path.split(markup.filename)
     title = '%s - %s' % (basename, dirname)
 
@@ -120,15 +120,17 @@ class Markup(object):
         cls._markup_detect[markup] = ftdetect
         cls._markup_render[markup] = render_func
 
-    def __init__(self, filename):
+    def __init__(self, filename, filetype=None):
         filename = os.path.abspath(os.path.expanduser(filename))
-        if os.path.exists(filename) and os.path.isfile(filename):
-            self._filename = filename
-            self._basename = os.path.basename(filename)
-            self._dirname = os.path.dirname(filename)
-            self._filetype = self._ftdetect(filename)
-        else:
+        if not os.path.exists(filename) or not os.path.isfile(filename):
             raise ValueError('invalid filename')
+        self._filename = filename
+        self._basename = os.path.basename(filename)
+        self._dirname = os.path.dirname(filename)
+        _filename = filename
+        if filetype:
+            _filename = "dummy.%s" % filetype
+        self._filetype = self._ftdetect(_filename)
 
     def _ftdetect(self, filename):
         # Markup._markup_detect
@@ -165,8 +167,9 @@ Markup.add_markup('markdown', r'\.(markdown|md|mdown|mkd|mkdn)$', markdown_to_ht
 Markup.add_markup('rst', r'\.(rst|rest)$', rst_to_html)
 
 
-def quickstart(markdown_file, port, debug=False, quiet=True):
-    app = build_app(filename=markdown_file, port=port, debug=debug, quiet=quiet)
+def quickstart(markdown_file, port, debug=False, quiet=True, filetype=None):
+    app = build_app(filename=markdown_file, port=port,
+                    debug=debug, quiet=quiet, filetype=filetype)
     logging.debug('starting server at port %d', port)
     app()
 

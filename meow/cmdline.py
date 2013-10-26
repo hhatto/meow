@@ -16,6 +16,7 @@ Options:
   -q, --quiet             Quiet mode.
   -p port, --port=port    Server port. [default: 7777]
   -o file, --output=file  Export to HTML mode.
+  -t type, --filetype=type  Force specify file type.
   --debug                 Output verbose debug logs.
 
 """
@@ -85,7 +86,7 @@ def main():
     # start server
     print('Preview on http://127.0.0.1:%d' % port)
     print('Hit Ctrl-C to quit.')
-    quickstart(markdown_file, port=port, debug=use_debug)
+    quickstart(markdown_file, port=port, debug=use_debug, filetype=args['--filetype'])
 
 if __name__ == '__main__':
     main()
