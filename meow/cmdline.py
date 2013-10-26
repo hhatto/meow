@@ -29,13 +29,6 @@ from ._version import __version__
 from .meow import quickstart, export_html
 
 
-# def pick_unused_port():
-#     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#     s.bind(('127.0.0.1', 0))
-#     addr, port = s.getsockname()
-#     s.close()
-#     return port
-
 def open_local_url(port):
     import webbrowser
     logging.debug('opening web browser...')
