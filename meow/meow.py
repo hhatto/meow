@@ -83,7 +83,7 @@ def build_app(filename, port, debug, quiet):
             logging.critical('%s: %s', markup.filename, e.strerror)
             raise e
 
-        if file_timestamp == timestamp: # Keep old entry
+        if file_timestamp == timestamp:     # Keep old entry
             return {
                 'title': title,
                 'timestamp': file_timestamp,
@@ -108,6 +108,7 @@ def build_app(filename, port, debug, quiet):
             server.shutdown()
 
     return run_app
+
 
 class Markup(object):
     _markup_detect = {}
@@ -168,6 +169,7 @@ def quickstart(markdown_file, port, debug=False, quiet=True):
     app = build_app(filename=markdown_file, port=port, debug=debug, quiet=quiet)
     logging.debug('starting server at port %d', port)
     app()
+
 
 def export_html(markdown_file, export_file):
     markup = Markup(markdown_file)

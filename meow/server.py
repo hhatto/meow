@@ -28,6 +28,7 @@ from cherrypy import wsgiserver
 class StoppableCherryPyServer(ServerAdapter):
 
     """ HACK for making a stoppable server """
+
     def __int__(self, *args, **kwargs):
         super(ServerAdapter, self).__init__(*args, **kwargs)
         self.srv = None
