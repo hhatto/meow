@@ -26,7 +26,7 @@ import os
 import sys
 from docopt import docopt
 from ._version import __version__
-from .meow import quickstart, export_html
+from .meow import quickstart, export_html, Markup, SUPPORT_FILETYPE
 
 
 def open_local_url(port):
@@ -71,14 +71,28 @@ def main():
         sys.stderr.write('Invalid port number\n')
         sys.exit(-1)
 
+    # check filetype
+    try:
+        Markup.ftdetect(markdown_file)
+    except ValueError as e:
+        if e.message == "unsupported markup":
+            _, ext = os.path.splitext(markdown_file)
+            print('"%s" is unsupported markup type.' % ext)
+            print('\n[SUPPORT FILETYPE]')
+            for k, v in SUPPORT_FILETYPE.items():
+                print('  %s: %s' % (k, v))
+            return
+        raise e
+
     # try open browser
     try:
         open_local_url(port)
     except:
         pass
-    # start server
     print('Preview on http://127.0.0.1:%d' % port)
     print('Hit Ctrl-C to quit.')
+
+    # start server
     quickstart(markdown_file, port=port, debug=use_debug, filetype=args['--filetype'])
 
 if __name__ == '__main__':

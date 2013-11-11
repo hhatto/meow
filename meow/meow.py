@@ -52,6 +52,12 @@ bottle.TEMPLATE_PATH = [DEFAULT_TEMPLATE_DIR, './']
 # Fix default static file path
 DEFAULT_STATIC_FILES_DIR = os.path.normpath(os.path.join(__path__, 'static'))
 
+SUPPORT_FILETYPE = {
+    'markdown': 'markdown|md|mdown|mkd|mkdn',
+    'textile': 'textile|txtile',
+    'rst': 'rst|rest',
+}
+
 
 def build_app(filename, port, debug, quiet, filetype):
     app = Bottle()
@@ -137,9 +143,10 @@ class Markup(object):
         _filename = filename
         if filetype:
             _filename = "dummy.%s" % filetype
-        self._filetype = self._ftdetect(_filename)
+        self._filetype = self.ftdetect(_filename)
 
-    def _ftdetect(self, filename):
+    @classmethod
+    def ftdetect(self, filename):
         # Markup._markup_detect
         for ft, detect in Markup._markup_detect.items():
             if re.search(detect, filename) is not None:
@@ -171,10 +178,10 @@ class Markup(object):
     html = property(**html())
 
 if 'mdmod_is_not_installed' not in locals():
-    Markup.add_markup('markdown', r'\.(markdown|md|mdown|mkd|mkdn)$', markdown_to_html)
+    Markup.add_markup('markdown', r'\.(%s)$' % SUPPORT_FILETYPE['markdown'], markdown_to_html)
 if 'txlmod_is_not_installed' not in locals():
-    Markup.add_markup('textile', r'\.(textile|txtile)$', textile_to_html)
-Markup.add_markup('rst', r'\.(rst|rest)$', rst_to_html)
+    Markup.add_markup('txtile', r'\.(%s)$' % SUPPORT_FILETYPE['textile'], textile_to_html)
+Markup.add_markup('rst', r'\.(%s)$' % SUPPORT_FILETYPE['rst'], rst_to_html)
 
 
 def quickstart(markdown_file, port, debug=False, quiet=True, filetype=None):
