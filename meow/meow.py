@@ -30,6 +30,10 @@ try:
     from .markdown import to_html as markdown_to_html
 except ImportError:
     mdmod_is_not_installed = True
+try:
+    from .txtile import to_html as textile_to_html
+except ImportError:
+    txlmod_is_not_installed = True
 from .rst import to_html as rst_to_html
 from .server import StoppableCherryPyServer
 
@@ -168,6 +172,8 @@ class Markup(object):
 
 if 'mdmod_is_not_installed' not in locals():
     Markup.add_markup('markdown', r'\.(markdown|md|mdown|mkd|mkdn)$', markdown_to_html)
+if 'txlmod_is_not_installed' not in locals():
+    Markup.add_markup('textile', r'\.(textile|txtile)$', textile_to_html)
 Markup.add_markup('rst', r'\.(rst|rest)$', rst_to_html)
 
 
