@@ -5,7 +5,7 @@ Meow
 About
 =====
 
-Meow is an editor-agnostic markdown and reStructuredText live previewer.
+Meow is an editor-agnostic Markdown, reStructuredText and Textile live previewer.
 Once you save your file, the rendered HTML will automatically get reloaded
 in your favourite browser.
 
@@ -28,6 +28,7 @@ Requirements
 meow requires
 
 * hoedown_ (optional)
+* `python-textile`_ (optional)
 * `bottle.py`_
 * pygments_
 * docutils_
@@ -35,6 +36,7 @@ meow requires
 * docopt_
 
 .. _hoedown: https://github.com/hhatto/python-hoedown
+.. _`python-textile`: https://github.com/sebix/python-textile
 .. _`bottle.py`: http://bottlepy.org/
 .. _pygments: http://pygments.org/
 .. _docutils: https://pypi.python.org/pypi/docutils
@@ -51,6 +53,10 @@ Opens preview in browser with server listening on 3000::
 Export to HTML only::
 
     meow -o exported.html your-doc.markdown
+
+To specify file type::
+
+    meow --filetype rst README
 
 RESTful API
 ===========
