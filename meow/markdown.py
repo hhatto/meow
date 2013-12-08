@@ -34,7 +34,6 @@ RENDER_EXTENSIONS = hoedown.EXT_FENCED_CODE | \
                     hoedown.EXT_NO_INTRA_EMPHASIS | \
                     hoedown.EXT_AUTOLINK | \
                     hoedown.EXT_STRIKETHROUGH | \
-                    hoedown.EXT_LAX_HTML_BLOCKS | \
                     hoedown.EXT_SUPERSCRIPT | \
                     hoedown.EXT_TABLES
 # hoedown HTML flags
