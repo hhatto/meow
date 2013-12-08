@@ -92,7 +92,7 @@ def main():
         raise e
 
     if not Markup.has_filetype_module(args['--filetype']):
-        usage(markdown_file)
+        usage("dummy." + args['--filetype'])
         return
 
     # try open browser
