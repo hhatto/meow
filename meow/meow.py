@@ -155,7 +155,6 @@ class Markup(object):
 
     @classmethod
     def has_filetype_module(self, filetype):
-        print self._markup_detect
         if filetype in self._markup_detect:
             return True
         return False
