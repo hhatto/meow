@@ -53,9 +53,9 @@ bottle.TEMPLATE_PATH = [DEFAULT_TEMPLATE_DIR, './']
 DEFAULT_STATIC_FILES_DIR = os.path.normpath(os.path.join(__path__, 'static'))
 
 SUPPORT_FILETYPE = {
-    'markdown': 'markdown|md|mdown|mkd|mkdn',
-    'textile': 'textile|txtile',
-    'rst': 'rst|rest',
+    'markdown': {'prefix': 'markdown|md|mdown|mkd|mkdn', 'module': 'hoedown'},
+    'textile': {'prefix': 'textile|txtile', 'module': 'python-textile'},
+    'rst': {'prefix': 'rst|rest', 'module': 'docutils'},
 }
 
 
@@ -153,6 +153,13 @@ class Markup(object):
                 return ft
         raise ValueError('unsupported markup')
 
+    @classmethod
+    def has_filetype_module(self, filetype):
+        print self._markup_detect
+        if filetype in self._markup_detect:
+            return True
+        return False
+
     def filename():
         doc = "The filename property."
         def fget(self):
@@ -178,10 +185,10 @@ class Markup(object):
     html = property(**html())
 
 if 'mdmod_is_not_installed' not in locals():
-    Markup.add_markup('markdown', r'\.(%s)$' % SUPPORT_FILETYPE['markdown'], markdown_to_html)
+    Markup.add_markup('markdown', r'\.(%s)$' % SUPPORT_FILETYPE['markdown']['prefix'], markdown_to_html)
 if 'txlmod_is_not_installed' not in locals():
-    Markup.add_markup('txtile', r'\.(%s)$' % SUPPORT_FILETYPE['textile'], textile_to_html)
-Markup.add_markup('rst', r'\.(%s)$' % SUPPORT_FILETYPE['rst'], rst_to_html)
+    Markup.add_markup('txtile', r'\.(%s)$' % SUPPORT_FILETYPE['textile']['prefix'], textile_to_html)
+Markup.add_markup('rst', r'\.(%s)$' % SUPPORT_FILETYPE['rst']['prefix'], rst_to_html)
 
 
 def quickstart(markdown_file, port, debug=False, quiet=True, filetype=None):

@@ -37,6 +37,17 @@ def open_local_url(port):
     webbrowser.open(local_url)
 
 
+def usage(markdown_file):
+    _, ext = os.path.splitext(markdown_file)
+    print('"%s" is unsupported markup type.' % ext)
+    print('\n[SUPPORT FILETYPE]')
+    for k, v in SUPPORT_FILETYPE.items():
+        print('  %s: %s' % (k, v['prefix']))
+    print('\n[REQUIREMENT MODULE]')
+    for k, v in SUPPORT_FILETYPE.items():
+        print('  %s: %s' % (k, v['module']))
+
+
 def main():
     args = docopt(__doc__, version=__version__)
 
@@ -76,13 +87,13 @@ def main():
         Markup.ftdetect(markdown_file)
     except ValueError as e:
         if e.message == "unsupported markup":
-            _, ext = os.path.splitext(markdown_file)
-            print('"%s" is unsupported markup type.' % ext)
-            print('\n[SUPPORT FILETYPE]')
-            for k, v in SUPPORT_FILETYPE.items():
-                print('  %s: %s' % (k, v))
+            usage(markdown_file)
             return
         raise e
+
+    if not Markup.has_filetype_module(args['--filetype']):
+        usage(markdown_file)
+        return
 
     # try open browser
     try:
