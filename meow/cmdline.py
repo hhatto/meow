@@ -72,6 +72,7 @@ def main():
         logging_level = logging.INFO
         use_debug = False
 
+    filetype = args['--filetype']
     logging.basicConfig(level=logging_level,
                         format='%(asctime)s %(levelname)-8s %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S')
@@ -91,8 +92,8 @@ def main():
             return
         raise e
 
-    if not Markup.has_filetype_module(args['--filetype']):
-        usage("dummy." + args['--filetype'])
+    if filetype and not Markup.has_filetype_module(filetype):
+        usage("dummy." + filetype)
         return
 
     # try open browser
@@ -104,7 +105,7 @@ def main():
     print('Hit Ctrl-C to quit.')
 
     # start server
-    quickstart(markdown_file, port=port, debug=use_debug, filetype=args['--filetype'])
+    quickstart(markdown_file, port=port, debug=use_debug, filetype=filetype)
 
 if __name__ == '__main__':
     main()
