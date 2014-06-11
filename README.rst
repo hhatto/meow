@@ -27,7 +27,7 @@ Requirements
 
 meow requires
 
-* hoedown_ (optional)
+* mistune_ (optional)
 * `python-textile`_ (optional)
 * `bottle.py`_
 * pygments_
@@ -35,7 +35,7 @@ meow requires
 * CherryPy_
 * docopt_
 
-.. _hoedown: https://github.com/hhatto/python-hoedown
+.. _mistune: https://github.com/lepture/mistune
 .. _`python-textile`: https://github.com/sebix/python-textile
 .. _`bottle.py`: http://bottlepy.org/
 .. _pygments: http://pygments.org/
