@@ -21,37 +21,24 @@ SOFTWARE.
 """
 
 import logging
-import hoedown
+import mistune
 import pygments
-from cgi import escape as escape_html
 from pygments.lexers import get_lexer_by_name
 from pygments.formatters import HtmlFormatter
 
 __all__ = ['to_html']
 
-# hoedown renderer extensions
-RENDER_EXTENSIONS = hoedown.EXT_FENCED_CODE | \
-                    hoedown.EXT_NO_INTRA_EMPHASIS | \
-                    hoedown.EXT_AUTOLINK | \
-                    hoedown.EXT_STRIKETHROUGH | \
-                    hoedown.EXT_LAX_HTML_BLOCKS | \
-                    hoedown.EXT_SUPERSCRIPT | \
-                    hoedown.EXT_TABLES
-# hoedown HTML flags
-HTML_FLAGS = hoedown.HTML_TOC
-
-
-class HtmlRenderer(hoedown.HtmlRenderer, hoedown.SmartyPants):
+class HtmlRenderer(mistune.Renderer):
 
     def block_code(self, text, lang):
         if not lang:
             return '\n<pre><code>%s</code></pre>\n' % \
-                escape_html(text.strip())
+                mistune.escape(text.strip())
         lexer = get_lexer_by_name(lang, stripall=True)
         formatter = HtmlFormatter()
         return pygments.highlight(text, lexer, formatter)
 
-markdown = hoedown.Markdown(HtmlRenderer(HTML_FLAGS), RENDER_EXTENSIONS)
+markdown = mistune.Markdown(renderer=HtmlRenderer())
 
 
 def to_html(filename):
