@@ -37,6 +37,17 @@ def open_local_url(port):
     webbrowser.open(local_url)
 
 
+def usage(markdown_file):
+    _, ext = os.path.splitext(markdown_file)
+    print('"%s" is unsupported markup type.' % ext)
+    print('\n[SUPPORT FILETYPE]')
+    for k, v in SUPPORT_FILETYPE.items():
+        print('  %s: %s' % (k, v['prefix']))
+    print('\n[REQUIREMENT MODULE]')
+    for k, v in SUPPORT_FILETYPE.items():
+        print('  %s: %s' % (k, v['module']))
+
+
 def main():
     args = docopt(__doc__, version=__version__)
 
@@ -61,6 +72,7 @@ def main():
         logging_level = logging.INFO
         use_debug = False
 
+    filetype = args['--filetype']
     logging.basicConfig(level=logging_level,
                         format='%(asctime)s %(levelname)-8s %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S')
@@ -76,13 +88,13 @@ def main():
         Markup.ftdetect(markdown_file)
     except ValueError as e:
         if e.message == "unsupported markup":
-            _, ext = os.path.splitext(markdown_file)
-            print('"%s" is unsupported markup type.' % ext)
-            print('\n[SUPPORT FILETYPE]')
-            for k, v in SUPPORT_FILETYPE.items():
-                print('  %s: %s' % (k, v))
+            usage(markdown_file)
             return
         raise e
+
+    if filetype and not Markup.has_filetype_module(filetype):
+        usage("dummy." + filetype)
+        return
 
     # try open browser
     try:
@@ -93,7 +105,7 @@ def main():
     print('Hit Ctrl-C to quit.')
 
     # start server
-    quickstart(markdown_file, port=port, debug=use_debug, filetype=args['--filetype'])
+    quickstart(markdown_file, port=port, debug=use_debug, filetype=filetype)
 
 if __name__ == '__main__':
     main()
