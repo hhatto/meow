@@ -107,7 +107,7 @@ def build_app(filename, port, debug, quiet, filetype):
             return {
                 'title': title,
                 'timestamp': file_timestamp,
-                'html_part': markup.html
+                'html_part': markup.html.decode('utf-8')
             }
 
     @app.route('/static/<filename>')
