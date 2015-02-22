@@ -18,7 +18,7 @@ reStructuredText live previewer.
 Installation
 ============
 
-.. code-block:: bash
+.. code:: bash
 
     pip install meow
 
