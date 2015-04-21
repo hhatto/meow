@@ -53,7 +53,7 @@ bottle.TEMPLATE_PATH = [DEFAULT_TEMPLATE_DIR, './']
 DEFAULT_STATIC_FILES_DIR = os.path.normpath(os.path.join(__path__, 'static'))
 
 SUPPORT_FILETYPE = {
-    'markdown': {'prefix': 'markdown|md|mdown|mkd|mkdn', 'module': 'hoedown'},
+    'markdown': {'prefix': 'markdown|md|mdown|mkd|mkdn', 'module': 'mistune'},
     'textile': {'prefix': 'textile|txtile', 'module': 'python-textile'},
     'rst': {'prefix': 'rst|rest', 'module': 'docutils'},
 }
